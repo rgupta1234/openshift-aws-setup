@@ -6,11 +6,8 @@
   gather_facts: false
   vars:
     region: "{{region}}"
-  tasks:
-    - name: "Terminate tagged EC2 instances"
-      ec2:
-        state: "absent"
-        region: "{{ region }}"
-        instance_ids: "{{ ec2_id }}"
-        wait: true
-      delegate_to: "localhost"
+  ec2:
+    state: "absent"
+    region: "{{ region }}"
+    instance_ids: "{{ ec2_id }}"
+    wait: true

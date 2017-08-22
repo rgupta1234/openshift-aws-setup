@@ -1,4 +1,7 @@
 ---
+
+- name: Teardown Environment
+
   hosts: local
 
   vars_files:
