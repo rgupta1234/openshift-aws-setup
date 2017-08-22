@@ -22,20 +22,13 @@
      region: "{{region}}"
   register: "ami_find"
 
-- name: Provision ssh public key for access
-  ec2_key:
-    name: "{{namespace}}"
-    key_material: "{{public_key}}"
-    region: "{{region}}"
-    state: "{{state}}"
-
 - name: Provision master
   ec2:
     instance_type: "{{amisize}}"
     image:  "{{ami_find['results'][0]['ami_id']}}"
     region: "{{region}}"
     wait: true
-    key_name: "{{namespace}}"
+    key_name: "{{aws_key_pair}}"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
     group: ['{{namespace}}-vpc', '{{namespace}}-public-ingress', '{{namespace}}-public-egress', '{{namespace}}-ssh']
     volumes:
@@ -62,7 +55,7 @@
     image:  "{{ami_find['results'][0]['ami_id']}}"
     region: "{{region}}"
     wait: true
-    key_name: "{{namespace}}"
+    key_name: "{{aws_key_pair}}"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
     group: ['{{namespace}}-vpc', '{{namespace}}-public-ingress', '{{namespace}}-public-egress', '{{namespace}}-ssh']
     volumes:
@@ -84,7 +77,7 @@
     image:  "{{ami_find['results'][0]['ami_id']}}"
     region: "{{region}}"
     wait: true
-    key_name: "{{namespace}}"
+    key_name: "{{aws_key_pair}}"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
     group: ['{{namespace}}-vpc', '{{namespace}}-public-ingress', '{{namespace}}-public-egress', '{{namespace}}-ssh']
     volumes:
@@ -106,7 +99,7 @@
     image:  "{{bastion_ami_find['results'][0]['ami_id']}}"
     region: "{{region}}"
     wait: true
-    key_name: "{{namespace}}"
+    key_name: "{{aws_key_pair}}"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
     group: ['{{namespace}}-vpc', '{{namespace}}-public-ingress', '{{namespace}}-public-egress', '{{namespace}}-ssh']
     count_tag:
