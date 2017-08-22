@@ -39,7 +39,7 @@
       Name: "master-{{namespace}}"
     instance_tags:
       Name: "master-{{namespace}}"
-      mits4u: "{{namespace}}" 
+      namespace: "{{namespace}}" 
     exact_count: 1
   register: ec2_master
 
@@ -66,7 +66,7 @@
       Name: "node1-{{namespace}}"
     instance_tags:
       Name: "node1-{{namespace}}"
-      mits4u: "{{namespace}}"
+      namespace: "{{namespace}}"
     exact_count: 1
     assign_public_ip: yes
   register: ec2_node1
@@ -88,7 +88,7 @@
       Name: "node2-{{namespace}}"
     instance_tags:
       Name: "node2-{{namespace}}"
-      mits4u: "{{namespace}}"
+      namespace: "{{namespace}}"
     exact_count: 1
     assign_public_ip: yes
   register: ec2_node2
@@ -106,7 +106,7 @@
       Name: "bastion-{{namespace}}"
     instance_tags:
       Name: "bastion-{{namespace}}"
-      mits4u: "{{namespace}}"
+      namespace: "{{namespace}}"
     exact_count: 1
     assign_public_ip: yes
   register: ec2_bastion
