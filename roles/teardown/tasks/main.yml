@@ -1,13 +1,13 @@
 ---
-
-- name: terminate instances
-  hosts: "tag_namespace_{{namespace}}"
+- hosts: "tag_namespace_{{namespace}}"
   connection: "local"
-  gather_facts: false
   vars:
     region: "{{region}}"
-  ec2:
-    state: "absent"
-    region: "{{ region }}"
-    instance_ids: "{{ ec2_id }}"
-    wait: true
+  tasks:
+  - name: terminate instance
+    ec2:
+      state: absent
+      region: "{{ region }}"
+      instance_ids: "{{ ec2_id }}"
+      wait: true
+    delegate_to: localhost
