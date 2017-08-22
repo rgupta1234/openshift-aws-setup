@@ -24,7 +24,7 @@
 
 - name: Provision master
   ec2:
-    instance_type: "{{amisize}}"
+    instance_type: "{{master_amisize}}"
     image:  "{{ami_find['results'][0]['ami_id']}}"
     region: "{{region}}"
     wait: true
