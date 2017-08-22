@@ -1,13 +1,17 @@
 ---
-- hosts: "tag_namespace_{{namespace}}"
-  connection: "local"
-  vars:
-    region: "{{region}}"
-  tasks:
-  - name: terminate instance
-    ec2:
-      state: absent
-      region: "{{ region }}"
-      instance_ids: "{{ ec2_id }}"
-      wait: true
-    delegate_to: localhost
+- name: gather instance from inventory
+  set_fact:
+    host: "{{ groups['tag_namespace_openshift'][0] }}"
+
+- pause:
+    prompt: 'I will terminate {{ name }} ({{host}}), ctrl-c to abort'
+  register: pause_result
+
+- name: terminate any matching ec2 instance
+  ec2:
+    state: absent
+    instance_ids: "{{ hostvars[host]['ec2_id'] }}"
+    region: "{{ region }}"
+    wait: yes
+  register: ec2_out
+  tags: ['ec2']

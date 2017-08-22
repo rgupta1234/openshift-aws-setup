@@ -2,13 +2,18 @@
 
 - name: Teardown Environment
 
-  hosts: local
+  hosts: "local"
 
   vars_files:
     - vars/aws-config.yml
 
   vars:
     state: 'present'
+
+  post_tasks:
+    - name: Print Namespace
+      debug:
+        msg: 'Namespace is: tag_namespace_{{namespace}}'
 
   roles:
   - teardown
