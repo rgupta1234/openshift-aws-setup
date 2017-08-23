@@ -62,4 +62,40 @@
    - "{{node1_public_ip}}"
    - "{{node2_public_ip}}"
 
+- name: register machine and pool with Red Hat
+    block:
+      - redhat_subscription:
+          state: present
+          username: {{rhsm_username}}
+          password: {{rhsm_password}}
+          pool: {{rhsm_pool}}
+        delegate_to: "{{item}}"
+        remote_user: "{{amazon_user}}"
+        become: true
+        with_items: 
+        - "{{bastion_public_ip}}"
+        - "{{master_public_ip}}"
+        - "{{node1_public_ip}}"
+        - "{{node2_public_ip}}"
 
+      - shell: 'subscription-manager repos --disable="*"'
+        delegate_to: "{{item}}"
+        remote_user: "{{amazon_user}}"
+        become: true
+        with_items: 
+        - "{{bastion_public_ip}}"
+        - "{{master_public_ip}}"
+        - "{{node1_public_ip}}"
+        - "{{node2_public_ip}}"
+
+      - shell: 'subscription-manager repos --enable="rhel-7-server-rpms" --enable="rhel-7-server-extras-rpms" --enable="rhel-7-server-ose-3.6-rpms" --enable="rhel-7-fast-datapath-rpms"'
+        delegate_to: "{{item}}"
+        remote_user: "{{amazon_user}}"
+        become: true
+        with_items: 
+        - "{{bastion_public_ip}}"
+        - "{{master_public_ip}}"
+        - "{{node1_public_ip}}"
+        - "{{node2_public_ip}}"
+  
+  when: deployment_type == 'openshift_enterprise'  
