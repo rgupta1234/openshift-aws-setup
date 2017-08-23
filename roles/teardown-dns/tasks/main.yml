@@ -5,16 +5,23 @@
   register: hosted_zones
 
 - name: Delete routes
-  include: delete-route.yml route={{ item }}
+  include: delete-route.yml zone={{ dns_zone }} record="{{item}}.{{ dns_zone }}" private_zone="true"
   with_items:
     - "bastion"
     - "master"
     - "node1"
     - "node2"
 
-- name: Delete DNS zone for openshift
+- name: Delete private DNS zone for openshift
   route53_zone:
      zone: "{{dns_zone}}"
      state: "absent"
      vpc_region: "{{region}}"
      comment: "Internal zone for Openshift"
+  ignore_errors: yes
+
+- name: Delete Public Route
+  include: delete-route.yml zone={{ public_dns_zone }} record={{ public_dns_zone }} private_zone="false"
+
+- name: Delete Public Wildcard Route
+  include: delete-route.yml zone={{ public_dns_zone }} record="*.{{ public_dns_zone }}" private_zone="false"
