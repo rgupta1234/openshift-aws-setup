@@ -27,6 +27,7 @@
       namespace: "{{namespace}}"
     region: "{{ region }}"
     state: "{{ state }}"
+    az: "{{availability_zone}}"
   register: subnet_facts
 
 - name: Set up public subnet route table
