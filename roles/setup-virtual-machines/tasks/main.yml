@@ -126,7 +126,7 @@
    bastion_public_ip: "{{ec2_bastion['tagged_instances'][0]['public_ip']}}"
 
 - name: Register VMs
-  include: register-vm public_ip={{ item }}
+  include: register-vm.yml public_ip={{ item }}
   with_items: 
     - "{{bastion_public_ip}}"
     - "{{master_public_ip}}"
