@@ -1,0 +1,23 @@
+---
+- name: Get Route Info
+  route53:
+    command: get
+    zone: "{{ dns_zone }}"
+    record: "{{route}}.{{dns_zone}}"
+    type: A
+    private_zone: True
+  register: rec
+
+- debug:
+    msg: "{{rec}}"
+
+- name: Delete Route record
+  route53:
+    command: delete
+    zone: "{{ dns_zone }}"
+    record: "{{ rec.set.record }}"
+    ttl: "{{ rec.set.ttl }}"
+    type: "{{ rec.set.type }}"
+    value: "{{ rec.set.value }}"
+    private_zone: True
+  when: not((rec.set.record is undefined) or (rec.set.record is none))

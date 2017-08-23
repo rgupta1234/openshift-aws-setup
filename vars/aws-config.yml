@@ -3,7 +3,10 @@
   vpc_cidr: "10.0.0.0/16"
   subnet_cidr: "10.0.1.0/24"
   namespace: "openshift"
+  # dns_zone is private zone, created and deleted by scripts
   dns_zone: "ose.local"
+  #Public DNS for cluster
+  public_dns_zone: "ocplab.com"
   aws_key_pair: "gnunn"
   amazon_user: "ec2-user"
   openshift_branch: "release-1.5"
@@ -15,5 +18,4 @@
   bastion_amisize: "t2.micro"
   master_amisize: "t2.xlarge"
   volume_size: 50
-  #DNS
-  public_dns_zone: "ocplab.com"
+  

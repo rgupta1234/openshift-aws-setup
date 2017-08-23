@@ -11,9 +11,12 @@
     state: 'present'
 
   post_tasks:
-    - name: Print Namespace
+    - name: Completed
       debug:
-        msg: 'Namespace is: tag_namespace_{{namespace}}'
+        msg: 'Finished tearing down environment {{namespace}}'
 
   roles:
-  - teardown
+  - teardown-virtual-machines
+  - teardown-security-groups
+  - teardown-vpc
+  - teardown-dns

@@ -6,7 +6,7 @@
     cidr_block: "{{ vpc_cidr }}"
     tags:
       Name: "{{namespace}}-vpc"
-      mits4u: "{{namespace}}"
+      namespace: "{{namespace}}"
     region: "{{ region }}"
     state: "{{ state }}"
   register: vpc_facts
@@ -24,7 +24,7 @@
     cidr: "{{subnet_cidr}}"
     tags:
       Name: "{{namespace}}-subnet"
-      mits4u: "{{namespace}}"
+      namespace: "{{namespace}}"
     region: "{{ region }}"
     state: "{{ state }}"
   register: subnet_facts
@@ -34,7 +34,7 @@
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     tags:
       Name: "{{namespace}}-route"
-      mits4u: "{{namespace}}"
+      namespace: "{{namespace}}"
     subnets:
       - "{{subnet_facts['subnet']['id']}}"
     routes:

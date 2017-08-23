@@ -1,0 +1,20 @@
+---
+- name: List all hosted zones
+  route53_facts:
+    query: hosted_zone
+  register: hosted_zones
+
+- name: Delete routes
+  include: delete-route.yml route={{ item }}
+  with_items:
+    - "bastion"
+    - "master"
+    - "node1"
+    - "node2"
+
+- name: Delete DNS zone for openshift
+  route53_zone:
+     zone: "{{dns_zone}}"
+     state: "absent"
+     vpc_region: "{{region}}"
+     comment: "Internal zone for Openshift"
