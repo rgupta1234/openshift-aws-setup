@@ -1,0 +1,13 @@
+---
+- debug:
+    msg: "Unsubscribing ip {{public_ip}}"
+
+- name: Unsubscribe VM
+  redhat_subscription:
+    state: absent
+    username: "{{rhsm_username}}"
+    password: "{{rhsm_password}}"
+    pool: "{{rhsm_pool}}"
+  delegate_to: "{{public_ip}}"
+  remote_user: "{{amazon_user}}"
+  become: true

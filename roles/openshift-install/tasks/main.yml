@@ -14,8 +14,9 @@
     version: "{{openshift_branch}}"
   delegate_to: "{{bastion_public_ip}}"
   remote_user: "{{amazon_user}}"
+  when: deployment_type == 'origin'
 
-- name: copy inventory for openshift istallation
+- name: copy script for openshift istallation
   template:
     src: "../files/install-openshift.sh"
     dest: "~{{amazon_user}}/install-openshift.sh"
@@ -28,6 +29,6 @@
    msg: "Check file install-openshift.log in Bastion 'ssh ec2-user@{{bastion_public_ip}}' "
 
 - name: run openshift installation script
-  shell: './install-openshift.sh |& tee install-openshift.log'
+  shell: './install-openshift.sh {{deployment_type}}  |& tee install-openshift.log'
   delegate_to: "{{bastion_public_ip}}"
   remote_user: "{{amazon_user}}"

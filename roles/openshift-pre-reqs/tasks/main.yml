@@ -1,53 +1,64 @@
 ---
 
   # needed for docker, see: https://forums.aws.amazon.com/thread.jspa?messageID=574126
-- name: enable repos for docker
-  shell: 'yum-config-manager --enable rhui-REGION-rhel-server-extras'
-  delegate_to: "{{item}}"
-  remote_user: "{{amazon_user}}"
-  become: true
-  register: rs
-  failed_when: "'Repository epel is listed more than once' in rs.stderr"
-  with_items: 
-   - "{{master_public_ip}}"
-   - "{{node1_public_ip}}"
-   - "{{node2_public_ip}}"
+#- name: enable repos for docker
+#  shell: 'yum-config-manager --enable rhui-REGION-rhel-server-extras'
+#  delegate_to: "{{item}}"
+#  remote_user: "{{amazon_user}}"
+#  become: true
+#  register: rs
+#  failed_when: "'Repository epel is listed more than once' in rs.stderr"
+#  with_items: 
+#   - "{{master_public_ip}}"
+#   - "{{node1_public_ip}}"
+#   - "{{node2_public_ip}}"
 
 - name: install pre-req packages on bastion
   yum:
-    name: "{{item}}"
+    name:
+      - "git"
+      - "@Development Tools"
+      - "openssl-devel"
+      - "python-devel"
+      - "gcc"
+      - "libffi-devel"
+      - "ansible"
+      - "atomic-openshift-utils"
     state: "present"
   delegate_to: "{{bastion_public_ip}}"
   remote_user: "{{amazon_user}}"
   become: true
-  with_items:
-    - "git"
-    - "@Development Tools"
-    - "openssl-devel"
-    - "python-devel"
-    - "gcc"
-    - "libffi-devel"
-    
 
-- name: install ansible on bastion
-  pip:
-    name: ansible
-    version: 2.2.0.0
-  delegate_to: "{{bastion_public_ip}}"
-  remote_user: "{{amazon_user}}"
-  become: true
-
-- name: install docker on master and nodes
+- name: install pre-req packages on nodes
   yum:
-    name: "docker"
+    name:
+      - "wget"
+      - "git"
+      - "net-tools"
+      - "bind-utils"
+      - "iptables-services"
+      - "bridge-utils"
+      - "bash-completion"
+      - "kexec-tools"
+      - "sos"
+      - "psacct"
+      - "docker-1.12.6"
     state: "present"
   delegate_to: "{{item}}"
   remote_user: "{{amazon_user}}"
   become: true
-  with_items: 
-   - "{{master_public_ip}}"
-   - "{{node1_public_ip}}"
-   - "{{node2_public_ip}}"
+  with_items:
+    - "{{master_public_ip}}"
+    - "{{node1_public_ip}}"
+    - "{{node2_public_ip}}"
+
+#- name: install ansible on bastion
+#  pip:
+#    name: ansible
+#    state: 2.2.0.0
+#  delegate_to: "{{bastion_public_ip}}"
+#  remote_user: "{{amazon_user}}"
+#  become: true
 
 - name: enable docker on master and nodes
   systemd:

@@ -6,10 +6,11 @@
       "tag:namespace": "{{namespace}}"
   register: ec2_facts
 
-#- name: Debug
-#  debug:
-#    msg: "{{ item.id }}"
-#  with_items: "{{ ec2_facts.instances }}"
+- name: Unregister VMs
+  include: unregister-vm.yml public_ip={{ item.public_ip_address }}
+  with_items: "{{ ec2_facts.instances }}"
+  when: ((deployment_type == 'openshift-enterprise') and (item.state != 'terminated'))
+  ignore_errors: yes
 
 - name: Terminate EC2 VMs
   ec2:
@@ -18,4 +19,4 @@
     instance_ids: "{{ item.id }}"
     wait: yes
   with_items: "{{ ec2_facts.instances }}"
-  when: item.state != "terminated"
+  when: item.state != 'terminated'

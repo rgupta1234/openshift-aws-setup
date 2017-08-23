@@ -11,11 +11,11 @@
     state: 'present'
 
   roles:
-  - setup-vpc
-  - setup-security-groups
-  - setup-virtual-machines
-  - setup-dns
-  - setup-ssh
+  #- setup-vpc
+  #- setup-security-groups
+  #- setup-virtual-machines
+  #- setup-dns
+  #- setup-ssh
   - openshift-pre-reqs
   - openshift-install
 
