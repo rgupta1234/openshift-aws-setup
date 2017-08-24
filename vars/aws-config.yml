@@ -9,16 +9,14 @@ dns_zone: "ose.local"
 public_dns_zone: "ocplab.com"
 aws_key_pair: "gnunn"
 amazon_user: "ec2-user"
+
+# Only needed for Origin
 openshift_branch: "release-1.5"
+
 # The type of OpenShift deployment, must be either origin or openshift-enterprise.
 # To install OpenShift Enterprise, you must have a valid OpenShift subscription
 # with Red Hat and Provide your subscription login and pool
 deployment_type: "openshift-enterprise"
-
-# RHSM Details
-rhsm_username: ""
-rhsm_password: ""
-rhsm_pool: ""
 
 # ec2
 amisize: "t2.large"
