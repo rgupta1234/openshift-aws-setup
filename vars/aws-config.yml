@@ -1,5 +1,4 @@
 region: "us-west-2"
-availability_zone: "us-west-2b"
 vpc_cidr: "10.0.0.0/16"
 subnet_cidr: "10.0.1.0/24"
 namespace: "openshift"
@@ -19,10 +18,18 @@ openshift_branch: "release-1.5"
 deployment_type: "openshift-enterprise"
 
 # ec2
-amisize: "t2.large"
-amiid: "ami-f05f5489"
-redhat_owner_id: "309956199498"
-amazon_owner_id: "137112412989"
-bastion_amisize: "t2.micro"
-master_amisize: "t2.xlarge"
+# Use ami_id if you know the specific ami you want to use
+ami_id: "ami-f05f5489"
+# Use the owner tags if you want to look up the AMI automatically
+#redhat_owner_id: "309956199498"
+bastion_ami_size: "t2.micro"
+master_ami_size: "t2.xlarge"
+node_ami_size: "t2.large"
 volume_size: 50
+
+# Debug, use to run openshift roles only
+#master_public_ip: "34.209.101.102"
+#node1_public_ip: "35.162.61.55"
+#node2_public_ip: "52.25.149.114"
+#bastion_public_ip: "52.32.148.210"
+#availability_zone: "us-west-2b"

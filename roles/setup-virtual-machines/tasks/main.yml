@@ -1,20 +1,6 @@
 ---
-
-- ec2_ami_find:
-     name: "RHEL-7.3*"
-     owner: "{{redhat_owner_id}}"
-     # Originally set for Origin
-     #name: "amzn-ami-hvm-*"
-     #owner: "{{amazon_owner_id}}"
-     architecture: "x86_64"
-     virtualization_type: "hvm"
-     sort: "creationDate"
-     sort_order: "descending"
-     sort_end: 1
-     region: "{{region}}"
-  register: "bastion_ami_find"
-
-- ec2_ami_find:
+- name: Find ami without ami id
+  ec2_ami_find:
      name: "RHEL-7.3*"
      owner: "{{redhat_owner_id}}"
      architecture: "x86_64"
@@ -24,13 +10,20 @@
      sort_end: 1
      region: "{{region}}"
   register: "ami_find"
+  when: ami_id is not defined
+
+- name: Find ami id with ami
+  ec2_ami_find:
+     ami_id: "{{ami_id}}"
+     region: "{{region}}"
+  register: "ami_find"
+  when: ami_id is defined
 
 - name: Provision master
   ec2:
-    instance_type: "{{master_amisize}}"
+    instance_type: "{{master_ami_size}}"
     image:  "{{ami_find['results'][0]['ami_id']}}"
     region: "{{region}}"
-    zone: "{{availability_zone}}"
     wait: true
     key_name: "{{aws_key_pair}}"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
@@ -55,10 +48,9 @@
 
 - name: Provision node1
   ec2:
-    instance_type: "{{amisize}}"
+    instance_type: "{{node_ami_size}}"
     image:  "{{ami_find['results'][0]['ami_id']}}"
     region: "{{region}}"
-    zone: "{{availability_zone}}"
     wait: true
     key_name: "{{aws_key_pair}}"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
@@ -78,10 +70,9 @@
 
 - name: Provision node2
   ec2:
-    instance_type: "{{amisize}}"
+    instance_type: "{{node_ami_size}}"
     image:  "{{ami_find['results'][0]['ami_id']}}"
     region: "{{region}}"
-    zone: "{{availability_zone}}"
     wait: true
     key_name: "{{aws_key_pair}}"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"
@@ -101,10 +92,9 @@
 
 - name: Provision bastion
   ec2:
-    instance_type: "{{bastion_amisize}}"
-    image:  "{{bastion_ami_find['results'][0]['ami_id']}}"
+    instance_type: "{{bastion_ami_size}}"
+    image:  "{{ami_find['results'][0]['ami_id']}}"
     region: "{{region}}"
-    zone: "{{availability_zone}}"
     wait: true
     key_name: "{{aws_key_pair}}"
     vpc_subnet_id: "{{subnet_facts['subnet']['id']}}"

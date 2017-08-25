@@ -1,5 +1,4 @@
 ---
-
 - name: Provision VPC
   ec2_vpc_net:
     name: "{{namespace}}-vpc"
@@ -27,7 +26,6 @@
       namespace: "{{namespace}}"
     region: "{{ region }}"
     state: "{{ state }}"
-    az: "{{availability_zone}}"
   register: subnet_facts
 
 - name: Set up public subnet route table
@@ -48,3 +46,7 @@
 - name: register vpc facts
   set_fact:
    vpc_id: "{{vpc_facts['vpc']['id']}}"
+
+- name: set availability zone fact
+  set_fact:
+    availability_zone: "{{subnet_facts['subnet']['availability_zone']}}"

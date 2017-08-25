@@ -51,6 +51,19 @@
     - "{{master_public_ip}}"
     - "{{node1_public_ip}}"
     - "{{node2_public_ip}}"
+  #register: yum_prereqs
+  #async: 7200
+  #poll: 0
+
+#- debug:
+#    msg: "{{ yum_prereqs }}"
+
+#- name: Wait for yum prereqs to complete
+#  async_status: jid={{ item.ansible_job_id }}"
+# register: yum_jobs
+#  until: yum_jobs.finished
+# retries: 300
+# with_items: yum_prereqs.results 
 
 - name: Create /etc/aws folder
   file: 
@@ -77,14 +90,6 @@
     - "{{node1_public_ip}}"
     - "{{node2_public_ip}}"
 
-#- name: install ansible on bastion
-#  pip:
-#    name: ansible
-#    state: 2.2.0.0
-#  delegate_to: "{{bastion_public_ip}}"
-#  remote_user: "{{amazon_user}}"
-#  become: true
-
 - name: upgrade all packages
   yum: name=* state=latest
   with_items: 
@@ -95,6 +100,16 @@
   delegate_to: "{{item}}"
   remote_user: "{{amazon_user}}"
   become: true
+#  register: yum_updates
+#  async: 7200
+#  poll: 0
+
+#- name: Wait for yum updates to complete
+#  async_status: jid={{ item.ansible_job_id }}
+#  register: yum_jobs
+#  until: yum_jobs.finished
+#  retries: 300
+#  with_items: yum_updates.results 
 
 - name: Update docker options
   shell: "sed -i '/OPTIONS=.*/c\\OPTIONS=\"--selinux-enabled --insecure-registry 172.30.0.0/16\"' /etc/sysconfig/docker"  
