@@ -12,14 +12,19 @@
   remote_user: "{{amazon_user}}"
   register: "master_rsa_pub"
 
-- name: install master pub key on bastion and nodes
+- name: install master pub key on bastion
   authorized_key: user="{{amazon_user}}" key="{{ master_rsa_pub.stdout }}"
   delegate_to: "{{item}}"
   remote_user: "{{amazon_user}}"
   with_items:
-   - "{{node1_public_ip}}"
-   - "{{node2_public_ip}}"
    - "{{bastion_public_ip}}"
+
+- name: install master pub key on nodes
+  authorized_key: user="{{amazon_user}}" key="{{ master_rsa_pub.stdout }}"
+  delegate_to: "{{item.public_ip}}"
+  remote_user: "{{amazon_user}}"
+  with_items:
+   - "{{nodes_ip}}"
 
 # access for bastion
 - name: Generating bastion key for ec2-user
@@ -33,11 +38,16 @@
   remote_user: "{{amazon_user}}"
   register: "bastion_rsa_pub"
 
-- name: install bastion pub key on master and nodes
+- name: install bastion pub key on master
   authorized_key: user="{{amazon_user}}" key="{{ bastion_rsa_pub.stdout }}"
   delegate_to: "{{item}}"
   remote_user: "{{amazon_user}}"
   with_items:
-   - "{{node1_public_ip}}"
-   - "{{node2_public_ip}}"
    - "{{master_public_ip}}"
+
+- name: install bastion pub key on nodes
+  authorized_key: user="{{amazon_user}}" key="{{ bastion_rsa_pub.stdout }}"
+  delegate_to: "{{item.public_ip}}"
+  remote_user: "{{amazon_user}}"
+  with_items:
+   - "{{nodes_ip}}"

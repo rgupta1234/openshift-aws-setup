@@ -4,13 +4,15 @@
     query: hosted_zone
   register: hosted_zones
 
-- name: Delete routes
+- name: Delete master and bastion routes
   include: delete-route.yml zone={{ dns_zone }} record="{{item}}.{{ dns_zone }}" private_zone="true"
   with_items:
     - "bastion"
     - "master"
-    - "node1"
-    - "node2"
+
+- name: Delete node routes
+  include: delete-route.yml zone={{ dns_zone }} record="node{{item}}.{{ dns_zone }}" private_zone="true"
+  with_sequence: start=1 end={{app_nodes|int}}
 
 - name: Delete private DNS zone for openshift
   route53_zone:

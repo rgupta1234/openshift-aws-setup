@@ -18,6 +18,7 @@
   - setup-virtual-machines
   - setup-dns
   - setup-ssh
+  - setup-host-groups
 
   pre_tasks:
     - fail: msg="Variable '{{ item }}' is not defined or is empty"
@@ -35,18 +36,6 @@
 
   vars_files:
     - vars/aws-config.yml
-
-  tasks:
-    - name: Add nodes to created_nodes group
-      add_host:
-        name={{ item.ip }}
-        groups=created_vms
-        instance_name={{ item.name }}
-      with_items:
-        - { name: 'master', ip: '{{master_public_ip}}' }
-        - { name: 'node1', ip: '{{node1_public_ip}}' }
-        - { name: 'node2', ip: '{{node2_public_ip}}' }  
-        - { name: 'bastion', ip: '{{bastion_public_ip}}' }  
 
 - name: Register and update virtual machines
   hosts: created_vms
@@ -72,17 +61,6 @@
 
   vars_files:
     - vars/aws-config.yml
-
-  tasks:
-    - name: Add nodes to created_nodes group
-      add_host:
-        name={{ item.ip }}
-        groups=created_nodes
-        instance_name={{ item.name }}
-      with_items:
-        - { name: 'master', ip: '{{master_public_ip}}' }
-        - { name: 'node1', ip: '{{node1_public_ip}}' }
-        - { name: 'node2', ip: '{{node2_public_ip}}' }  
 
 - name: OpenShift Prerequisites
   hosts: created_nodes
