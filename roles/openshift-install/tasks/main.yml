@@ -1,5 +1,21 @@
 ---
 
+- name: install pre-req packages on bastion
+  yum:
+    name:
+      - "git"
+      - "@Development Tools"
+      - "openssl-devel"
+      - "python-devel"
+      - "gcc"
+      - "libffi-devel"
+      - "ansible"
+      - "atomic-openshift-utils"
+    state: "present"
+  delegate_to: "{{bastion_public_ip}}"
+  remote_user: "{{amazon_user}}"
+  become: true
+
 - name: copy inventory for openshift istallation
   template:
     src: "../files/openshift_inventory.cfg"

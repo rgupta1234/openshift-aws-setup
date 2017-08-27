@@ -5,18 +5,12 @@
     username: "{{rhsm_username}}"
     password: "{{rhsm_password}}"
     pool: "{{rhsm_pool}}"
-  delegate_to: "{{public_ip}}"
-  remote_user: "{{amazon_user}}"
   become: true
 
 - name: Disable Repos
   shell: 'subscription-manager repos --disable="*"'
-  delegate_to: "{{public_ip}}"
-  remote_user: "{{amazon_user}}"
   become: true
 
 - name: Enable required repos
   shell: 'subscription-manager repos --enable="rhel-7-server-rpms" --enable="rhel-7-server-extras-rpms" --enable="rhel-7-server-ose-3.6-rpms" --enable="rhel-7-fast-datapath-rpms"'
-  delegate_to: "{{public_ip}}"
-  remote_user: "{{amazon_user}}"
   become: true

@@ -24,4 +24,4 @@
   include: delete-route.yml zone={{ public_dns_zone }} record={{ public_dns_zone }} private_zone="false"
 
 - name: Delete Public Wildcard Route
-  include: delete-route.yml zone={{ public_dns_zone }} record="*.{{ public_dns_zone }}" private_zone="false"
+  include: delete-route.yml zone={{ public_dns_zone }} record="*.{{public_subdomain_prefix}}.{{ public_dns_zone }}" private_zone="false"
