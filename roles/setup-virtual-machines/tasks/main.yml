@@ -93,6 +93,7 @@
   set_fact:
    master_private_ip: "{{ec2_master['tagged_instances'][0]['private_ip']}}"
    master_public_ip: "{{master_elastic_ip['public_ip']}}"
+   master_private_dns_name: "{{ec2_master['tagged_instances'][0]['private_dns_name']}}"
    bastion_private_ip: "{{ec2_bastion['tagged_instances'][0]['private_ip']}}"
    bastion_public_ip: "{{ec2_bastion['tagged_instances'][0]['public_ip']}}"
 

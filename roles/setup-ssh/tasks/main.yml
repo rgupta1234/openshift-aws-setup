@@ -51,3 +51,15 @@
   remote_user: "{{amazon_user}}"
   with_items:
    - "{{nodes_ip}}"
+
+- name: run ssh-keyscan to add master to known_hosts
+  local_action: shell ssh-keyscan {{ master_private_dns_name }} >> ~/.ssh/known_hosts
+  delegate_to: "{{bastion_public_ip}}"
+  remote_user: "{{amazon_user}}"
+  
+- name: run ssh-keyscan to add nodes to known_hosts
+  local_action: shell ssh-keyscan {{ item.private_dns_name }} >> ~/.ssh/known_hosts
+  delegate_to: "{{bastion_public_ip}}"
+  remote_user: "{{amazon_user}}"
+  with_items:
+   - "{{nodes_ip}}"  
