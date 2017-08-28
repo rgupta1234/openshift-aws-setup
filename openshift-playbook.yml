@@ -7,7 +7,6 @@
 
   vars_files:
     - vars/aws-config.yml
-    - vars/secrets-config.yml
 
   vars:
     state: 'present'
@@ -43,7 +42,6 @@
 
   vars_files:
     - vars/aws-config.yml
-    - vars/secrets-config.yml
 
   vars:
     state: 'present'
