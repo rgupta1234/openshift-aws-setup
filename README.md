@@ -17,14 +17,21 @@ The OpenShift inventory can be customized by modifying ```roles/openshift-instal
 
 ## Run
 
-For OpenShift Origin, the command ```./openshift-playbook-run.sh <AWS_ACCESS_KEY_ID> <AWS_SECRET_ACCESS_KEY>``` will execute the Ansible playbook
+You need to export your AWS credentials prior to running:
+
+```
+export AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
+export AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
+```
+
+For OpenShift Origin, the command ```./openshift-playbook-run.sh``` will execute the Ansible playbook
 with a set of roles which will provision AWS infrastructure and install Openshift on top of that.
 
 Installing OpenShift Container Platform (OCP) requires a Red Hat subscription and you must provide your Red Hat credentials
 and the name of the pool to use to the script.
 
 ```
-./openshift-playbook-run.sh <AWS_ACCESS_KEY_ID> <AWS_SECRET_ACCESS_KEY> -e rhsm_username=me@something.com -e rhsm_password=mypassword -e rhsm_pool="OpenShift Pool"
+./openshift-playbook-run.sh -e rhsm_username=me@something.com -e rhsm_password=mypassword -e rhsm_pool="OpenShift Pool"
 ```
 Note the above is just an example, please update all variables including the pool name which is correct for your situation.
 
