@@ -31,7 +31,7 @@ Installing OpenShift Container Platform (OCP) requires a Red Hat subscription an
 and the name of the pool to use to the script.
 
 ```
-./openshift-playbook-run.sh -e rhsm_username=me@something.com -e rhsm_password=mypassword -e rhsm_pool="OpenShift Pool"
+./openshift-playbook-run.sh -e rhsm_username=me@something.com -e rhsm_password=mypassword -e rhsm_pool="sas876sa8sa76sjk..."
 ```
 Note the above is just an example, please update all variables including the pool name which is correct for your situation.
 

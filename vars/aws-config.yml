@@ -29,6 +29,7 @@ ami_id: "ami-f05f5489"
 bastion_ami_size: "t2.micro"
 master_ami_size: "t2.xlarge"
 node_ami_size: "t2.large"
-volume_size: 50
+root_volume_size: 50
+docker_volume_size: 100
 
 app_nodes: 3

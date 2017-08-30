@@ -1,6 +1,6 @@
 ---
 - debug:
-    msg: "Unsubscribing ip {{public_ip}}"
+    msg: "Unsubscribing IP {{public_ip}}"
 
 - name: Unsubscribe VM
   redhat_subscription:

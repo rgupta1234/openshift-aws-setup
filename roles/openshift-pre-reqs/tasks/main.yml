@@ -16,6 +16,16 @@
     state: "present"
   become: true
 
+- name: configure docker storage
+  template:
+    src: "../files/docker-storage-setup"
+    dest: "/etc/sysconfig/docker-storage-setup"
+  become: true
+
+- name: configure docker storage
+  command: "docker-storage-setup"
+  become: true
+
 - name: Update docker options
   shell: "sed -i '/OPTIONS=.*/c\\OPTIONS=\"--selinux-enabled --insecure-registry 172.30.0.0/16\"' /etc/sysconfig/docker"  
   become: true

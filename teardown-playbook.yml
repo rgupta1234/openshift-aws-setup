@@ -2,7 +2,7 @@
 
 - name: Teardown Environment
 
-  hosts: "local"
+  hosts: local
 
   vars_files:
     - vars/aws-config.yml
