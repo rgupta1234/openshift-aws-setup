@@ -28,4 +28,4 @@
     name={{ item.public_ip }}
     groups=created_nodes
     instance_name=node{{ item.index }}
-  with_items: "{{ nodes_ip }} "
+  with_items: "{{ nodes_ip }}"

@@ -105,8 +105,8 @@
    bastion_private_ip: "{{ec2_bastion['tagged_instances'][0]['private_ip']}}"
    bastion_public_ip: "{{ec2_bastion['tagged_instances'][0]['public_ip']}}"
 
-- debug:
-    msg: "{{ ec2_nodes }}"
+# - debug:
+#     msg: "{{ ec2_nodes }}"
 
 # Create a dict of node public and private ip addresses
 - name: Register Node facts
