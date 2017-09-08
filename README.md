@@ -14,6 +14,7 @@ The OpenShift inventory can be customized by modifying ```roles/openshift-instal
 
  - AWS credentials: access key & secret --> http://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html
  - Ansible installed --> http://docs.ansible.com/ansible/intro_installation.html
+ - Route 53 Public Hosted Zone. The playbook use Route53 for private and public DNS and routes. While the playbook automatically creates everything for the private DNS hosted zone and routes, it is expected that you have a public hosted zone in Route 53 that matches whatever you are using for the public DNS.
 
 ## Run
 
