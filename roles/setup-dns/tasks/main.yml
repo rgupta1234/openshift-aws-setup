@@ -3,7 +3,7 @@
 - name: create DNS zone for openshift
   route53_zone:
      zone: "{{dns_zone}}"
-     state: "{{state}}"
+     state: "present"
      vpc_id: "{{vpc_id}}"
      vpc_region: "{{region}}"
      comment: "Internal zone for Openshift"

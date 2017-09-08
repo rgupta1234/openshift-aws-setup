@@ -7,7 +7,7 @@
     description: "Default security group that allows all instances in the VPC to talk to each other over any port and protocol."
     vpc_id: "{{vpc_id}}"
     region: "{{region}}"
-    state: "{{state}}"
+    state: "present"
     rules:
       - proto: "-1"
         from_port: "0"
@@ -26,7 +26,7 @@
     description: "Security group that allows public ingress to instances, HTTP, HTTPS and more."
     vpc_id: "{{vpc_id}}"
     region: "{{region}}"
-    state: "{{state}}"
+    state: "present"
     rules:
       # HTTP
       - proto: "tcp"
@@ -57,7 +57,7 @@
     description: "This security group allows public egress from the instances for HTTP and HTTPS, which is needed for yum updates, git access etc etc."
     vpc_id: "{{vpc_id}}"
     region: "{{region}}"
-    state: "{{state}}"
+    state: "present"
     rules_egress:
       # HTTP
       - proto: "tcp"
@@ -77,11 +77,10 @@
     description: "Default security group that allows all instances in the VPC to talk to each other over any port and protocol."
     vpc_id: "{{vpc_id}}"
     region: "{{region}}"
-    state: "{{state}}"
+    state: "present"
     rules:
       - proto: "tcp"
         from_port: "22"
         to_port: "22"
         cidr_ip: "0.0.0.0/0"
-    rules_egress: []    
- 
+    rules_egress: []

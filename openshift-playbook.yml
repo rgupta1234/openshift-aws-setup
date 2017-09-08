@@ -8,10 +8,6 @@
   vars_files:
     - vars/aws-config.yml
 
-  vars:
-    state: 'present'
-#    nodes_ip: "{{ lookup('file','nodes.json') | from_json }}"
-
   roles:
   - setup-vpc
   - setup-security-groups

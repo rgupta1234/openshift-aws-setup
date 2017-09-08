@@ -7,14 +7,14 @@
       Name: "{{namespace}}-vpc"
       namespace: "{{namespace}}"
     region: "{{ region }}"
-    state: "{{ state }}"
+    state: "present"
   register: vpc_facts
 
 - name: Provision internet gateway
   ec2_vpc_igw:
     vpc_id: "{{vpc_facts['vpc']['id']}}"
     region: "{{ region }}"
-    state: "{{ state }}"
+    state: "present"
   register: igw_facts
 
 - name: Provision subnet
@@ -25,7 +25,7 @@
       Name: "{{namespace}}-subnet"
       namespace: "{{namespace}}"
     region: "{{ region }}"
-    state: "{{ state }}"
+    state: "present"
   register: subnet_facts
 
 - name: Set up public subnet route table
@@ -40,7 +40,7 @@
       - dest: 0.0.0.0/0
         gateway_id: "{{igw_facts['gateway_id']}}"
     region: "{{ region }}"
-    state: "{{ state }}"
+    state: "present"
   register: route_facts
 
 - name: register vpc facts
