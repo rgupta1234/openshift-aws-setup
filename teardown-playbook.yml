@@ -7,9 +7,6 @@
   vars_files:
     - vars/aws-config.yml
 
-  vars:
-    state: 'present'
-
   pre_tasks:
     - fail: msg="Variable '{{ item }}' is not defined or is empty"
       when: (deployment_type == 'openshift-enterprise') and ((item not in vars) or vars[item] == '')

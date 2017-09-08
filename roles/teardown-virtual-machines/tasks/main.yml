@@ -6,19 +6,30 @@
       "tag:namespace": "{{namespace}}"
   register: ec2_facts
 
-- name: Unregister VMs
+- name: Unsubscribe VMs
   include: unregister-vm.yml public_ip={{ item.public_ip_address }}
   with_items: "{{ ec2_facts.instances }}"
-  when: ((deployment_type == 'openshift-enterprise') and (item.state != 'terminated'))
+  when: ((deployment_type == 'openshift-enterprise') and (item.state == 'running'))
   ignore_errors: yes
 
-- name: Delete elastic IP
-  ec2_eip:
-    ip: "{{item.public_ip_address}}"
-    region: "{{region}}"
-    state: absent
+- name: Notify of VMs that could not be unsubscribed
+  debug:
+    msg: "The VM {{ item.private_dns_name }} could not be unsubscribed because it was stopped."
   with_items: "{{ ec2_facts.instances }}"
-  when: item.tags.Name == 'master' ~ namespace
+  when: ((deployment_type == 'openshift-enterprise') and (item.state == 'stopped'))
+  ignore_errors: yes
+
+# Note this only works if master is running
+- name: Get elastic IP
+  set_fact:
+    master_elastic_ip: "{{item.public_ip_address}}"
+    master_device_ip: "{{item.id}}"
+  with_items: "{{ ec2_facts.instances }}"
+  when: (item.tags.Name == 'master-' ~ namespace)
+
+- name: Debug elastic IP
+  debug:
+    msg: "Master elastic IP is {{master_elastic_ip}}"
 
 - name: Terminate EC2 VMs
   ec2:
@@ -28,3 +39,11 @@
     wait: yes
   with_items: "{{ ec2_facts.instances }}"
   when: item.state != 'terminated'
+
+- name: Delete elastic IP
+  ec2_eip:
+    device_id: "{{master_device_ip}}"
+    ip: "{{master_elastic_ip}}"
+    region: "{{region}}"
+    state: absent
+  when: (master_elastic_ip is defined) and (master_elastic_ip != '')
