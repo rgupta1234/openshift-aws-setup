@@ -33,10 +33,7 @@ master_root_volume_size: 50
 node_root_volume_size: 30
 docker_volume_size: 50
 
-<<<<<<< HEAD
 # The number of application nodes in the cluster
-=======
->>>>>>> 647816336fe69ca3d862578dd811dd8c507427eb
 app_nodes: 3
 
 # This must match what is in /openshift-install/files/openshift_inventory.cfg
