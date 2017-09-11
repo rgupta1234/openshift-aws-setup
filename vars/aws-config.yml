@@ -33,4 +33,18 @@ master_root_volume_size: 50
 node_root_volume_size: 30
 docker_volume_size: 50
 
-app_nodes: 3
+app_nodes: 2
+
+# This must match what is in /openshift-install/files/openshift_inventory.cfg
+htpasswd_path: "/etc/origin/master/htpasswd"
+
+# Users to create in OpenShift, highly recommend changing password
+# Set admin to true for users you want to be the cluster administrator
+users:
+  - {name: admin, password: changeme!, admin: true}
+  # - {name: developer1, password: changeme!, admin: false}
+  # - {name: developer2, password: changeme!, admin: false}
+  # - {name: developer3, password: changeme!, admin: false}
+  # - {name: developer4, password: changeme!, admin: false}
+  # - {name: developer5, password: changeme!, admin: false}
+  # - {name: nexus, password: changeme!, admin: false}

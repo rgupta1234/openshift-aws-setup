@@ -15,6 +15,7 @@ The OpenShift inventory can be customized by modifying ```roles/openshift-instal
  - AWS credentials: access key & secret --> http://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html
  - Ansible installed --> http://docs.ansible.com/ansible/intro_installation.html
  - Route 53 Public Hosted Zone. The playbook use Route53 for private and public DNS and routes. While the playbook automatically creates everything for the private DNS hosted zone and routes, it is expected that you have a public hosted zone in Route 53 that matches whatever you are using for the public DNS.
+ - By default a single admin user is created called ```admin``` that can be used to login into the web console. The password for the user is in the ```aws-config.yml``` vars file. __PLEASE CHANGE THE PASSWORD TO SOMETHING UNIQUE!__. Other users can be added to this file as well.
 
 ## Run
 

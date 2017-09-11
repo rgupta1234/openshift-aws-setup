@@ -1,0 +1,4 @@
+---
+- name: Add users
+  include: add-user.yml user={{ item }}
+  with_items: "{{ users }}"  
