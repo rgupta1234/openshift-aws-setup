@@ -8,7 +8,7 @@ This repo is a set of Ansible automation scripts that:
 
 AWS related configuration can be customised by modifying ```vars/aws-config.yaml```. Note that the number of application nodes is configurable, the default is 3.
 
-The OpenShift inventory can be customized by modifying ```roles/openshift-install/files/openshift_inventory.cfg```, note that epheremal metrics is enabled by default as well as the AWS cloud provider.
+The OpenShift inventory can be customized by modifying ```roles/openshift-install/files/openshift_inventory.cfg```, note that dynamic metrics and logging is enabled by default as well as the AWS cloud provider.
 
 ## Prerequisites
 
