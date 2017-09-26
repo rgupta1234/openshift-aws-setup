@@ -5,4 +5,4 @@
 
 export ANSIBLE_HOST_KEY_CHECKING=False
 
-time ansible-playbook -vvv openshift-playbook.yml -i inventory/inventory.cfg "$@"
+time ansible-playbook openshift-playbook.yml -i inventory/inventory.cfg "$@"
