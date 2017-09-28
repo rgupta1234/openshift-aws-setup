@@ -17,6 +17,12 @@
   - setup-host-groups
 
   pre_tasks:
+    - name: Verify Ansible Version
+      assert:
+        that: 
+          - "ansible_version.major == 2"
+          - "ansible_version.minor == 3"
+        msg: "This script is only supported with the 2.3 version of Ansible"
 
     - fail: msg="Variable '{{ item }}' is not defined or is empty"
       when: (deployment_type == 'openshift-enterprise') and ((item not in vars) or vars[item] == '')
