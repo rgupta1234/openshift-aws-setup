@@ -2,9 +2,7 @@
 
 ## Overview
 
-This repo is a set of Ansible automation scripts that:
- - provisions AWS infrastructure
- - deploys Openshift (Origin or Container Platform)
+This is an Ansible auotmation playbook that provisions a small OpenShift environment (1 master, x app nodes) that is suitable for demos and small POCs. The playbook can deploy either Origin or Container Platform.
 
 AWS related configuration can be customised by modifying ```vars/aws-config.yaml```. Note that the number of application nodes is configurable, the default is 3.
 
