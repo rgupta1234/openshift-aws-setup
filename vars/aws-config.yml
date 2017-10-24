@@ -9,8 +9,8 @@ dns_zone: "ose.local"
 public_dns_zone: "ocplab.com"
 # Prefix for subdomain for apps, i.e. apps.ocplab.com
 public_subdomain_prefix: "apps"
-# Amazon key pair to use, must exist before running script
-aws_key_pair: "gnunn"
+# Amazon key pair to use, must exist before running script. Please generate in AWS management console.
+aws_key_pair: "mykeypair"
 
 amazon_user: "ec2-user"
 
