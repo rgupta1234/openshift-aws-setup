@@ -49,6 +49,7 @@
   ec2_eip:
    device_id: "{{ec2_master['tagged_instances'][0]['id']}}"
    region: "{{region}}"
+   in_vpc: "yes"
    release_on_disassociation: true
   register: master_elastic_ip
 
