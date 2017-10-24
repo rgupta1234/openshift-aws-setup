@@ -28,12 +28,16 @@
 
 - name: Disable Repos
   shell: 'subscription-manager repos --disable="*"'
-  retries: 5
-  delay: 10
+  register: result
+  until: result | succeeded
+  retries: 10
+  delay: 5      
   become: true
 
 - name: Enable required repos
   shell: 'subscription-manager repos --enable="rhel-7-server-rpms" --enable="rhel-7-server-extras-rpms" --enable="rhel-7-server-ose-3.6-rpms" --enable="rhel-7-fast-datapath-rpms"'
-  retries: 5
-  delay: 10
+  register: result
+  until: result | succeeded
+  retries: 10
+  delay: 5      
   become: true
