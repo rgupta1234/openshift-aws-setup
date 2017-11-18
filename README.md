@@ -44,6 +44,10 @@ and the name of the pool to use to the script.
 ```
 Note the above is just an example, please update all variables including the pool name which is correct for your situation.
 
+## Master and User Pods
+
+By default, the master will host infra pods as well as user pods. If you wish to ensure the master is unencumbered with user pods, uncomment the ```osm_default_node_selector``` in ```roles/openshift-install/files/openshft_inventory.cfg```.
+
 ## Network topology
 
 ![Network Diagram](./docs/network-topology-openshift.jpg)
