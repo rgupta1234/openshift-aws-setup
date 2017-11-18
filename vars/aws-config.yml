@@ -53,11 +53,11 @@ app_nodes: 3
 
 # The type of OpenShift deployment, must be either origin or openshift-enterprise.
 # To install OpenShift Enterprise, you must have a valid OpenShift subscription
-# with Red Hat and Provide your subscription login and pool
+# with Red Hat and provide your subscription login and pool
 deployment_type: "openshift-enterprise"
 
 # Only needed for Origin
-# openshift_branch: "release-1.5"
+# openshift_branch: "release-3.6"
 
 #####################################################################
 # Variables you do not want to change unless you are sure you know 
