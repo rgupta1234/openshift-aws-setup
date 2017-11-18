@@ -1,18 +1,55 @@
+#####################################################################
+# Variables you should update for your installation
+#####################################################################
+
+# AWS region to install environment into
 region: "us-west-2"
-vpc_cidr: "10.0.0.0/16"
-subnet_cidr: "10.0.1.0/24"
-# namespace is used to uniquely differentiate the stack
-namespace: "openshift"
-# dns_zone is private zone, created and deleted by scripts
-dns_zone: "ose.local"
-# Public DNS for cluster
+
+# The public DNS for cluster, you must have a Route 53 zone configured for this
 public_dns_zone: "ocplab.com"
-# Prefix for subdomain for apps, i.e. apps.ocplab.com
+# Prefix for subdomain for wildcard DNS, i.e. *.apps.ocplab.com
 public_subdomain_prefix: "apps"
+
 # Amazon key pair to use, must exist before running script. Please generate in AWS management console.
 aws_key_pair: "mykeypair"
 
-amazon_user: "ec2-user"
+# You have a choice, if you know the specific AMI you want to use, reference it by ami_id
+# If you do not know the ami_id, comment out the ami_id variable and uncomment the redhat_owner_id
+
+# Use the owner tag if you want to look up the AMI automatically
+#redhat_owner_id: "309956199498"
+# Use ami_id if you know the specific ami you want to use, note the ami
+# below refers to a gold image in us-west-2, it's unlikely you have access
+# to it so change this variable to something appropriate. Use the AWS console
+# to locate a suitable image
+ami_id: "ami-cfa343b7"
+
+# Users to create in OpenShift, highly recommend changing password
+# Set admin to true for users you want to be the cluster administrator
+# Any admin users are also added to master linux VM for cockpit
+users:
+  - {name: admin, password: changeme!, admin: true}
+  # - {name: developer1, password: changeme!, admin: false}
+  # - {name: developer2, password: changeme!, admin: false}
+  # - {name: developer3, password: changeme!, admin: false}
+  # - {name: developer4, password: changeme!, admin: false}
+  # - {name: developer5, password: changeme!, admin: false}
+  # - {name: nexus, password: changeme!, admin: false}
+
+#####################################################################
+# Variables you may optionally change for your installation
+#####################################################################
+
+# Variables for node configuration
+bastion_ami_size: "t2.small"
+master_ami_size: "m4.xlarge"
+node_ami_size: "t2.large"
+master_root_volume_size: 50
+node_root_volume_size: 30
+docker_volume_size: 50
+
+# The number of application nodes in the cluster
+app_nodes: 3
 
 # The type of OpenShift deployment, must be either origin or openshift-enterprise.
 # To install OpenShift Enterprise, you must have a valid OpenShift subscription
@@ -22,32 +59,20 @@ deployment_type: "openshift-enterprise"
 # Only needed for Origin
 # openshift_branch: "release-1.5"
 
-# ec2
-# Use ami_id if you know the specific ami you want to use
-ami_id: "ami-f05f5489"
-# Use the owner tag if you want to look up the AMI automatically
-#redhat_owner_id: "309956199498"
-bastion_ami_size: "t2.small"
-master_ami_size: "t2.xlarge"
-node_ami_size: "t2.large"
-master_root_volume_size: 50
-node_root_volume_size: 30
-docker_volume_size: 50
+#####################################################################
+# Variables you do not want to change unless you are sure you know 
+# what you are doing
+#####################################################################
 
-# The number of application nodes in the cluster
-app_nodes: 3
+# namespace is used to uniquely differentiate the stack
+namespace: "openshift"
+# dns_zone is private zone, created and deleted by scripts
+dns_zone: "ose.local"
+
+vpc_cidr: "10.0.0.0/16"
+subnet_cidr: "10.0.1.0/24"
+
+amazon_user: "ec2-user"
 
 # This must match what is in /openshift-install/files/openshift_inventory.cfg
-# TODO: Just reference this variable in inventory, no reason to have it twice
 htpasswd_path: "/etc/origin/master/htpasswd"
-
-# Users to create in OpenShift, highly recommend changing password
-# Set admin to true for users you want to be the cluster administrator
-users:
-  - {name: admin, password: changeme!, admin: true}
-  # - {name: developer1, password: changeme!, admin: false}
-  # - {name: developer2, password: changeme!, admin: false}
-  # - {name: developer3, password: changeme!, admin: false}
-  # - {name: developer4, password: changeme!, admin: false}
-  # - {name: developer5, password: changeme!, admin: false}
-  # - {name: nexus, password: changeme!, admin: false}
