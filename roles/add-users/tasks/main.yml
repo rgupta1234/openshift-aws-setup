@@ -12,7 +12,7 @@
   become: true
 
 - name: oc login as admin users for cockpit to work
-  shell: "oc login -u {{item.name}} -p {{item.password}} https://localhost:8443"
+  shell: "oc login -u {{item.name}} -p {{item.password}} https://localhost:8443 --insecure-skip-tls-verify=true"
   when: item.admin
   with_items: "{{ users }}"
   delegate_to: "{{master_public_ip}}"
