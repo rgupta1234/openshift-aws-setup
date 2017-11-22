@@ -60,6 +60,17 @@ deployment_type: "openshift-enterprise"
 # openshift_branch: "release-3.6"
 
 #####################################################################
+# This playbook can optionally install CNS (Gluster) for applications. It
+# requires three nodes dedicated to it which will be provisioned by the
+# playbook automatically. Note this installs gluster for
+# apps use only, the registry will continue to use AWS storage.
+#####################################################################
+install_gluster: false
+gluster_ami_size: m4.xlarge
+# This volume size is per gluster node so total storage is (gluster_volume_size * 3)
+gluster_volume_size: 100
+
+#####################################################################
 # Variables you do not want to change unless you are sure you know 
 # what you are doing
 #####################################################################

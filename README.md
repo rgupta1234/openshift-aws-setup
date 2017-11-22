@@ -24,6 +24,10 @@ The OpenShift inventory can be customized by modifying ```roles/openshift-instal
 
 Where my keypair is the name of your keypair. Obviously you need to have a copy of mykeypair.pem in the .ssh directory as well in order for it to be used.
 
+## Container Native Storage (CNS) Gluster
+
+The playbook can optionally install CNS storage (gluster) as the default persistent storage provider. This will provision an additional three nodes dedicated to CNS. To use this feature, set the ```install_gluster``` to true and configure other parameters as needed.
+
 ## Run
 
 You need to export your AWS credentials prior to running:
