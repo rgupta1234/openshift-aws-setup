@@ -65,6 +65,8 @@ A bastion is created as part of the installation, however once the installation 
 
 If the OpenShift installation fails at task ```run openshift installation script```, you can ssh to the bastion and review the ```openshift-install.log``` file to see what issue occurred.
 
+Cockpit is available on port 9090 so you can access it using the same URL as the master but change 8443 to 9090. If you set an OpenShift admin user Cockpit will be configured to use the same username/password.
+
 ## References
 
  - https://www.codeproject.com/Articles/1168687/Get-up-and-running-with-OpenShift-on-AWS
