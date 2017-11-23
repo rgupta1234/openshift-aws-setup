@@ -53,11 +53,17 @@ and the name of the pool to use to the script.
 ```
 Note the above is just an example, please update all variables including the pool name which is correct for your situation.
 
-## Network topology
+## Network Topology
 
 ![Network Diagram](./docs/network-topology-openshift.jpg)
 
 A private VPC and DNS is used, OpenShift is installed using the private IP addresses. This means the IP addresses never change, unlike EC2 public addresses, and the environment can be stopped and started as needed.
+
+A bastion is created as part of the installation, however once the installation is complete it is no longer needed and may be stopped or terminated. Note that it can be handy to keep the bastion around in a stopped state in case you want to manually re-run the installation again.
+
+## Troubleshooting
+
+If the OpenShift installation fails at task ```run openshift installation script```, you can ssh to the bastion and review the ```openshift-install.log``` file to see what issue occurred.
 
 ## References
 
