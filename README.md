@@ -26,7 +26,7 @@ Where my keypair is the name of your keypair. Obviously you need to have a copy 
 
 ## Container Native Storage (CNS) Gluster
 
-The playbook can optionally install CNS storage (gluster) as the default persistent storage provider. This will provision an additional three nodes dedicated to CNS. To use this feature, set the ```install_gluster``` to true and configure other parameters as needed.
+The playbook can optionally install CNS storage (gluster) as the default persistent storage provider for application storage. This will provision an additional three nodes dedicated to CNS. To use this feature, set the ```install_gluster``` to true and configure other parameters as needed. Note this is only for application storage, the registry remains on AWS storage.
 
 ## Master and User Pods
 
