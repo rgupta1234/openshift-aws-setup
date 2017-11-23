@@ -28,6 +28,11 @@ Where my keypair is the name of your keypair. Obviously you need to have a copy 
 
 The playbook can optionally install CNS storage (gluster) as the default persistent storage provider. This will provision an additional three nodes dedicated to CNS. To use this feature, set the ```install_gluster``` to true and configure other parameters as needed.
 
+## Master and User Pods
+
+By default, the master will not host infra pods as well as user pods. If you want the master to host user pods, comment the ```osm_default_node_selector``` in ```roles/openshift-install/files/openshft_inventory.cfg```. Note that if you also install
+gluster, this wil cause the gluster nodes to host user pods as well.
+
 ## Run
 
 You need to export your AWS credentials prior to running:
@@ -47,10 +52,6 @@ and the name of the pool to use to the script.
 ./openshift-playbook-run.sh -e rhsm_username=me@something.com -e rhsm_password=mypassword -e rhsm_pool="sas876sa8sa76sjk..."
 ```
 Note the above is just an example, please update all variables including the pool name which is correct for your situation.
-
-## Master and User Pods
-
-By default, the master will host infra pods as well as user pods. If you wish to ensure the master is unencumbered with user pods, uncomment the ```osm_default_node_selector``` in ```roles/openshift-install/files/openshft_inventory.cfg```.
 
 ## Network topology
 
