@@ -30,7 +30,7 @@ The playbook can optionally install CNS storage (gluster) as the default persist
 
 ## Master and User Pods
 
-By default, the master will not host infra pods as well as user pods. If you want the master to host user pods, comment the ```osm_default_node_selector``` in ```roles/openshift-install/files/openshft_inventory.cfg```. Note that if you also install
+By default, the master will not host user pods, just infra pods. If you want the master to host user pods, comment the ```osm_default_node_selector``` in ```roles/openshift-install/files/openshft_inventory.cfg```. Note that if you also install
 gluster, this wil cause the gluster nodes to host user pods as well.
 
 ## Run
