@@ -44,8 +44,7 @@
   ec2_vol_facts:
     region: "{{region}}"
     filters:
-      "tag:Name": "kubernetes.io/cluster/{{namespace}}"
-      "status": "available"
+        "{'tag:kubernetes.io/cluster/{{namespace}}':'owned','status':'available'}"
   register: aws_volumes
 
 - debug:
