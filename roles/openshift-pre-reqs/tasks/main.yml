@@ -15,7 +15,7 @@
       - "docker-1.12.6"
     state: "present"
   become: true
-
+ 
 - name: configure docker storage
   template:
     src: "../files/docker-storage-setup"

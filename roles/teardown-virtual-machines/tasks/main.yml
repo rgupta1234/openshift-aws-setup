@@ -37,26 +37,23 @@
   with_items: "{{ ec2_facts.instances }}"
   when: item.state != 'terminated'
 
-# The below works to delete dynamic volumes, however it will delete
-# all available PV regardless of whether it belongs to this stack. This
-# should be OK but slight risk that someone has a dynamic PV that isn't
-# attached for some reason that they still want to preserve. Should change the
-# below to grab the PVs from the master or try setting delete on terminate before
-# terminating instance
-# - name: Retrieve dynamic volumes
-#   ec2_vol_facts:
-#     region: "{{region}}"
-#     filters:
-#       "tag:Name": "kubernetes-dynamic-pvc*"
-#       "status": "available"     
-#   register: aws_volumes
+# In OCP 3.7 volumes are tagged using the kube cluster tag
+# so we can be sure we are deleting volumes belonging to the
+# cluster we are tearing down
+- name: Retrieve dynamic volumes
+  ec2_vol_facts:
+    region: "{{region}}"
+    filters:
+      "tag:Name": "kubernetes.io/cluster/{{namespace}}"
+      "status": "available"
+  register: aws_volumes
 
-# - debug:
-#     msg: "{{aws_volumes}}"
+- debug:
+    msg: "{{aws_volumes}}"
 
-# - name: Delete dynamic volumes
-#   ec2_vol:
-#     region: "{{region}}"
-#     state: "absent"
-#     id: "{{item.id}}"
-#   with_items: "{{aws_volumes.volumes}}"
+- name: Delete dynamic volumes
+  ec2_vol:
+    region: "{{region}}"
+    state: "absent"
+    id: "{{item.id}}"
+  with_items: "{{aws_volumes.volumes}}"

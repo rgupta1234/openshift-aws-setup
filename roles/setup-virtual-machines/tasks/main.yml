@@ -40,8 +40,7 @@
     count_tag:
       Name: "master-{{namespace}}"
     instance_tags:
-      Name: "master-{{namespace}}"
-      namespace: "{{namespace}}" 
+      "{'Name':'master-{{namespace}}','namespace':'{{namespace}}','kubernetes.io/cluster/{{namespace}}':'{{namespace}}'}"
     exact_count: 1
   register: ec2_master
 
@@ -74,8 +73,7 @@
     count_tag:
       Name: "node{{item}}-{{namespace}}"
     instance_tags:
-      Name: "node{{item}}-{{namespace}}"
-      namespace: "{{namespace}}"
+      "{'Name':'node{{item}}-{{namespace}}','namespace':'{{namespace}}','kubernetes.io/cluster/{{namespace}}':'{{namespace}}'}"
     exact_count: 1
     assign_public_ip: yes
   with_sequence: start=1 end={{app_nodes|int}}
@@ -106,8 +104,7 @@
     count_tag:
       Name: "gluster{{item}}-{{namespace}}"
     instance_tags:
-      Name: "gluster{{item}}-{{namespace}}"
-      namespace: "{{namespace}}"
+      "{'Name':'gluster{{item}}-{{namespace}}','namespace':'{{namespace}}','kubernetes.io/cluster/{{namespace}}':'{{namespace}}'}"
     exact_count: 1
     assign_public_ip: yes
   with_sequence: start=1 end=3

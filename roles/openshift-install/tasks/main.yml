@@ -15,6 +15,17 @@
   delegate_to: "{{bastion_public_ip}}"
   remote_user: "{{amazon_user}}"
   become: true
+  when: deployment_type == 'origin'
+
+- name: install pre-req packages on bastion
+  yum:
+    name:
+      - "atomic-openshift-utils"
+    state: "present"
+  delegate_to: "{{bastion_public_ip}}"
+  remote_user: "{{amazon_user}}"
+  become: true
+  when: deployment_type != 'origin'
 
 - name: copy inventory for openshift istallation
   template:

@@ -35,7 +35,7 @@
   become: true
 
 - name: Enable required repos
-  shell: 'subscription-manager repos --enable="rhel-7-server-rpms" --enable="rhel-7-server-extras-rpms" --enable="rhel-7-server-ose-3.6-rpms" --enable="rhel-7-fast-datapath-rpms"'
+  shell: 'subscription-manager repos --enable="rhel-7-server-rpms" --enable="rhel-7-server-extras-rpms" --enable="rhel-7-server-ose-{{ocp_version}}-rpms" --enable="rhel-7-fast-datapath-rpms"'
   register: result
   until: result | succeeded
   retries: 10

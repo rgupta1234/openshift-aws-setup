@@ -59,6 +59,9 @@ deployment_type: "openshift-enterprise"
 # Only needed for Origin
 # openshift_branch: "release-3.6"
 
+# Only needed for Container Platform
+ocp_version: "3.7"
+
 #####################################################################
 # This playbook can optionally install CNS (Gluster) for applications. It
 # requires three nodes dedicated to it which will be provisioned by the
