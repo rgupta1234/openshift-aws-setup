@@ -7,11 +7,10 @@
      vpc_id: "{{vpc_id}}"
      vpc_region: "{{region}}"
      comment: "Internal zone for Openshift"
-  register: aws_zone 
+  register: aws_zone
 
 - name: add bastion dns
   route53:
-    hosted_zone_id: "{{aws_zone['set']['zone_id']}}"
     zone: "{{dns_zone}}"
     record: "bastion.{{dns_zone}}"
     type: A
@@ -25,7 +24,6 @@
 
 - name: add master dns 
   route53:
-    hosted_zone_id: "{{aws_zone['set']['zone_id']}}"
     zone: "{{dns_zone}}"
     record: "master.{{dns_zone}}"
     type: A
@@ -39,7 +37,6 @@
 
 - name: add node dns 
   route53:
-    hosted_zone_id: "{{aws_zone['set']['zone_id']}}"
     zone: "{{dns_zone}}"
     record: "node{{item.index}}.{{dns_zone}}"
     type: A
@@ -55,7 +52,6 @@
 
 - name: add glusterdns 
   route53:
-    hosted_zone_id: "{{aws_zone['set']['zone_id']}}"
     zone: "{{dns_zone}}"
     record: "gluster{{item.index}}.{{dns_zone}}"
     type: A
