@@ -11,7 +11,7 @@ public_dns_zone: "ocplab.com"
 public_subdomain_prefix: "apps"
 
 # Amazon key pair to use, must exist before running script. Please generate in AWS management console.
-aws_key_pair: "mykeypair"
+aws_key_pair: "gupta"
 
 # You have a choice, if you know the specific AMI you want to use, reference it by ami_id
 # If you do not know the ami_id, comment out the ami_id variable and uncomment the redhat_owner_id
