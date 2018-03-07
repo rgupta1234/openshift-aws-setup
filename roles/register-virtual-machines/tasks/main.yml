@@ -11,6 +11,7 @@
     username: "{{rhsm_username}}"
     password: "{{rhsm_password}}"
     autosubscribe: false
+    force_register: True
   register: result
   until: result | succeeded
   retries: 10
