@@ -1,7 +1,7 @@
 region: "sa-east-1"
 public_dns_zone: "rg.osecloud.com"
 public_subdomain_prefix: "apps"
-aws_key_pair: "gupta"
+aws_key_pair: "gupta2"
 ami_id: "ami-5fd69a33"
 provision_ssl_certs: false
 

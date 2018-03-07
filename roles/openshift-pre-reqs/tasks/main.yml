@@ -23,7 +23,7 @@
   become: true
 
 - name: configure docker storage
-  command: "docker-storage-setup"
+  command: "docker-storage-setup --reset"
   become: true
 
 - name: Update docker options
